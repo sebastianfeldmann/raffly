@@ -55,6 +55,21 @@
             <?php endif; ?>
         </div>
         
+        <div class="qr-section">
+            <h3>Share this Raffle</h3>
+            <div class="qr-content">
+                <div class="qr-code">
+                    <img src="/qrcode/<?= $raffleId ?>" alt="QR Code for Raffle Signup" class="qr-image">
+                </div>
+                <div class="qr-info">
+                    <p>Scan to join this raffle</p>
+                    <a href="/signup/<?= $raffleId ?>" class="btn btn-secondary">
+                        📝 Join Raffle
+                    </a>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
     <footer class="powered-by">
