@@ -43,13 +43,20 @@
         
         <div class="info-grid">
             <div class="info-card">
-                <h3>Remaining Participants</h3>
-                <p id="participant-count"><?= count($raffleData['participants']) ?></p>
+                <h3>Participants (<?= count($raffleData['participants']) ?>)</h3>
+                <ul id="participant-list">
+                    <?php 
+                    $sortedParticipants = $raffleData['participants'];
+                    sort($sortedParticipants);
+                    foreach ($sortedParticipants as $participant): ?>
+                        <li><?= htmlspecialchars($participant) ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
             
             <?php if (!empty($raffleData['winners'])): ?>
             <div class="info-card">
-                <h3>Previous Winners</h3>
+                <h3>Winners (<?= count($raffleData['winners']) ?>)</h3>
                 <ul>
                     <?php foreach ($raffleData['winners'] as $winner): ?>
                         <li><?= htmlspecialchars($winner) ?></li>
@@ -224,7 +231,6 @@
             }
             
             const winnerDisplay = document.getElementById('winner-display');
-            const participantCount = document.getElementById('participant-count');
             
             try {
                 // Send winner to backend
@@ -246,9 +252,6 @@
                 // Show winner
                 document.getElementById('winner-name').textContent = winner;
                 winnerDisplay.style.display = 'block';
-                
-                // Update participant count
-                participantCount.textContent = result.remainingParticipants;
                 
                 // Reload page after showing winner for 3 seconds
                 setTimeout(() => {
