@@ -35,7 +35,11 @@
                     <tbody>
                         <?php foreach ($raffles as $raffle): ?>
                             <tr>
-                                <td class="raffle-title"><?= htmlspecialchars($raffle['title']) ?></td>
+                                <td class="raffle-title">
+                                    <a href="/raffle/<?= $raffle['id'] ?>" class="raffle-title-link">
+                                        <?= htmlspecialchars($raffle['title']) ?>
+                                    </a>
+                                </td>
                                 <td class="raffle-id"><?= htmlspecialchars($raffle['id']) ?></td>
                                 <td class="participant-count"><?= $raffle['participants'] ?></td>
                                 <td class="winner-count"><?= $raffle['winners'] ?></td>
