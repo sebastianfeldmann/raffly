@@ -32,20 +32,7 @@ A simple PHP application for creating and managing raffles with unique URLs and 
    ```bash
    chmod 755 data
    ```
-
-4. **Configure Apache** to use `/public` as document root and enable mod_rewrite:
-   ```apache
-   <VirtualHost *:80>
-       DocumentRoot /path/to/raffly/public
-       <Directory /path/to/raffly/public>
-           AllowOverride All
-           Require all granted
-       </Directory>
-   </VirtualHost>
-   ```
-
-5. **Access the application** at your domain
-
+   
 ## Usage
 
 ### Creating a Raffle
@@ -81,7 +68,3 @@ Each raffle is stored as a JSON file with this structure:
     "winners": ["Peter"]
 }
 ```
-
-## License
-
-This project is open source. Feel free to use and modify as needed.
