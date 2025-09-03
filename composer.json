@@ -1,0 +1,20 @@
+{
+    "name": "sebastianfeldmann/raffly",
+    "description": "Simple Raffle App",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SebastianFeldmann\\Raffly\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Seabstian Feldmann",
+            "email": "sf@sebastian-feldmann.info"
+        }
+    ],
+    "require": {
+        "endroid/qr-code": "^6.0"
+    }
+}
