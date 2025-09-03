@@ -8,6 +8,10 @@
 </head>
 <body>
     <div class="container">
+        <button id="soundToggle" class="btn btn-sound sound-corner" title="Toggle Sound">
+            <span id="soundIcon">🔊</span>
+        </button>
+        
         <h1><?= htmlspecialchars($raffleData['title']) ?></h1>
         
         <div class="wheel-container">
@@ -84,6 +88,8 @@
     <script>
         const raffleId = '<?= $raffleId ?>';
         let isSpinning = false;
+        let winSound = null;
+        let soundEnabled = true;
 
         // 8 distinct colors optimized for wheel visibility
         const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#FFB347', '#87CEEB'];
@@ -125,20 +131,62 @@
             'animation' :           
             {
                 'type'     : 'spinToStop',
-                'duration' : 5, 
+                'duration' : 8, 
                 'spins'    : 8,
                 'callbackFinished' : wheelStopped
             }
         });
             
-        // Add click handler for spin button
+        // Add click handlers
         document.getElementById('spinBtn')?.addEventListener('click', spinWheel);
+        document.getElementById('soundToggle')?.addEventListener('click', toggleSound);
+        
+        // Sound toggle function
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const soundIcon = document.getElementById('soundIcon');
+            const soundToggle = document.getElementById('soundToggle');
+            
+            if (soundEnabled) {
+                soundIcon.textContent = '🔊';
+                soundToggle.classList.remove('sound-disabled');
+                soundToggle.title = 'Disable Sound';
+            } else {
+                soundIcon.textContent = '🔇';
+                soundToggle.classList.add('sound-disabled');
+                soundToggle.title = 'Enable Sound';
+            }
+        }
         
         
         async function spinWheel() {
             if (isSpinning || !theWheel) return;
             
             const spinBtn = document.getElementById('spinBtn');
+            
+            // Play spin sound
+            if (soundEnabled) {
+                try {
+                    const spinSound = new Audio('/assets/spin.mp3');
+                    spinSound.volume = 0.6;
+                    spinSound.play();
+                } catch (error) {
+                    console.log('Could not play spin sound:', error);
+                    // Continue without sound if audio fails
+                }
+            }
+                        
+            // Prepare win sound during user interaction
+            if (soundEnabled) {
+                try {
+                    winSound = new Audio('/assets/win.mp3');
+                    winSound.volume = 0.8;
+                    // Preload the audio
+                    winSound.load();
+                } catch (error) {
+                    console.log('Could not prepare win sound:', error);
+                }
+            }
             
             isSpinning = true;
             spinBtn.disabled = true;
@@ -162,6 +210,16 @@
                 console.error('Could not determine winner!');
                 alert('Error: Could not determine winner!');
                 return;
+            }
+            
+            // Play win sound
+            if (soundEnabled && winSound) {
+                try {
+                    await winSound.play();
+                } catch (error) {
+                    console.log('Could not play win sound:', error);
+                    // Continue without sound if audio fails
+                }
             }
             
             const winnerDisplay = document.getElementById('winner-display');
@@ -193,6 +251,7 @@
                 
                 // Reload page after showing winner for 3 seconds
                 setTimeout(() => {
+                    console.log('Reloading page...');
                     window.location.reload();
                 }, 3000);
                 

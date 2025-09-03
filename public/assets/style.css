@@ -20,6 +20,7 @@ body {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 /* Logo Styles */
@@ -336,6 +337,43 @@ input[type="text"]:focus {
     margin: 2rem 0;
 }
 
+.btn-sound {
+    background-color: #6c757d;
+    color: white;
+    padding: 4px 6px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-sound:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+.btn-sound.sound-disabled {
+    background-color: #dc3545;
+    opacity: 0.7;
+}
+
+.btn-sound.sound-disabled:hover {
+    background-color: #c82333;
+}
+
+.btn-sound.sound-corner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
 .winner-display {
     text-align: center;
     margin: 2rem 0;
@@ -454,6 +492,14 @@ input[type="text"]:focus {
     
     .qr-section {
         margin: 2rem 0 1.5rem 0;
+    }
+    
+    .btn-sound.sound-corner {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+        top: 15px;
+        right: 15px;
     }
 }
 
