@@ -13,7 +13,7 @@
         <div class="wheel-container">
             <?php if (empty($raffleData['participants'])): ?>
                 <div class="no-participants">
-                    <p>No participants available to spin for.</p>
+                    <p>No participants available.</p>
                 </div>
             <?php else: ?>
                 <div class="wheel-wrapper">
@@ -30,8 +30,6 @@
         <div class="controls">
             <?php if (!empty($raffleData['participants'])): ?>
                 <button id="spinBtn" class="btn btn-primary btn-large">Spin the Wheel!</button>
-            <?php else: ?>
-                <p class="no-participants-message">No participants available to spin for.</p>
             <?php endif; ?>
         </div>
         
