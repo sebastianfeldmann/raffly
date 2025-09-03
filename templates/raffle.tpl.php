@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raffle Wheel - <?= htmlspecialchars($raffleData['title']) ?></title>
+    <title>Raffly - <?= htmlspecialchars($raffleData['title']) ?></title>
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -126,13 +126,14 @@
             'canvasId'     : 'wheelCanvas',
             'numSegments'  : segments.length,     
             'outerRadius'  : 250,  
-            'textFontSize' : 28,   
+            'textFontSize' : 28,
+            'textAlignment': 'outer',   
             'segments'     : segments,
-            'animation' :           
+            'animation'    :           
             {
-                'type'     : 'spinToStop',
-                'duration' : 8, 
-                'spins'    : 8,
+                'type'             : 'spinToStop',
+                'duration'         : 8, 
+                'spins'            : 8,
                 'callbackFinished' : wheelStopped
             }
         });
