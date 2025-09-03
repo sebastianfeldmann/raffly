@@ -28,9 +28,14 @@ A simple PHP application for creating and managing raffles with unique URLs and 
    └── README.md
    ```
 
-3. **Set data directory permissions**:
+3. **Set data directory permissions**
    ```bash
    chmod 755 data
+   ```
+   
+4. **Test locally**
+   ```
+   cd public && php -S localhost:8080
    ```
    
 ## Usage
