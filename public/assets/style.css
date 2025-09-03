@@ -285,7 +285,7 @@ input[type="text"]:focus {
 
 .wheel-pointer {
     position: absolute;
-    top: -20px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -310,7 +310,7 @@ input[type="text"]:focus {
     height: 0;
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
-    border-top: 20px solid #ffffff;
+    border-top: 20px solid #000000;
 }
 
 #canvas {
