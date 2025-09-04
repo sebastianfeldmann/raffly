@@ -41,45 +41,20 @@
             <h2>🎉 Winner: <span id="winner-name"></span> 🎉</h2>
         </div>
         
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>Participants (<?= count($raffleData['participants']) ?>)</h3>
-                <ul id="participant-list">
-                    <?php 
-                    $sortedParticipants = $raffleData['participants'];
-                    sort($sortedParticipants);
-                    foreach ($sortedParticipants as $participant): ?>
-                        <li><?= htmlspecialchars($participant) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-            
-            <?php if (!empty($raffleData['winners'])): ?>
-            <div class="info-card">
-                <h3>Winners (<?= count($raffleData['winners']) ?>)</h3>
-                <ul>
-                    <?php foreach ($raffleData['winners'] as $winner): ?>
-                        <li><?= htmlspecialchars($winner) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-            <?php endif; ?>
-        </div>
-        
-        <div class="qr-section">
-            <h3>Share this Raffle</h3>
-            <div class="qr-content">
-                <div class="qr-code">
-                    <img src="/qrcode/<?= $raffleId ?>" alt="QR Code for Raffle Signup" class="qr-image">
-                </div>
-                <div class="qr-info">
-                    <p>Scan to join this raffle</p>
-                    <a href="/signup/<?= $raffleId ?>" class="btn btn-secondary">
-                        📝 Join Raffle
-                    </a>
-                </div>
+        <?php if (!empty($raffleData['winners'])): ?>
+        <div class="winners-showcase">
+            <h2>🏆 Hall of Fame</h2>
+            <div class="winners-grid">
+                <?php foreach ($raffleData['winners'] as $index => $winner): ?>
+                    <div class="winner-card">
+                        <div class="winner-position"><?= $index + 1 ?></div>
+                        <div class="winner-name"><?= htmlspecialchars($winner) ?></div>
+                        <div class="winner-trophy">🏆</div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
+        <?php endif; ?>
         
     </div>
 

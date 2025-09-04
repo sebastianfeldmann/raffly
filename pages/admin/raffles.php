@@ -3,14 +3,13 @@
 use SebastianFeldmann\Raffly\Raffle;
 
 function admin($path) {
-    $dataDir = dirname(__DIR__) . '/data';
     $successMessage = '';
 
     // Handle raffle deletion
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_raffle'])) {
         $raffleId = $_POST['raffle_id'];
         if (preg_match('/^[a-z0-9]{5}$/', $raffleId)) {
-            $filePath = $dataDir . '/' . $raffleId . '.json';
+            $filePath = DATA_DIR . $raffleId . '.json';
             if (file_exists($filePath)) {
                 unlink($filePath);
                 $successMessage = "Raffle '{$raffleId}' has been deleted.";
@@ -20,8 +19,8 @@ function admin($path) {
 
     // Get all raffle files
     $raffles = [];
-    if (is_dir($dataDir)) {
-        $files = glob($dataDir . '/*.json');
+    if (is_dir(DATA_DIR)) {
+        $files = glob(DATA_DIR . '*.json');
         foreach ($files as $file) {
             $raffleId = basename($file, '.json');
             $data = json_decode(file_get_contents($file), true);
@@ -43,5 +42,5 @@ function admin($path) {
     });
     
     // Render admin template
-    include dirname(__DIR__) . '/templates/admin.tpl.php';
+    include TPL_DIR . 'admin/raffles.tpl.php';
 }

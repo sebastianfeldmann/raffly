@@ -22,20 +22,19 @@ function homepage($path) {
             ];
             
             // Ensure data directory exists
-            $dataDir = dirname(__DIR__) . '/data';
-            if (!is_dir($dataDir)) {
-                mkdir($dataDir, 0755, true);
+            if (!is_dir(DATA_DIR)) {
+                mkdir(DATA_DIR, 0755, true);
             }
             
             // Save to JSON file
-            file_put_contents($dataDir . '/' . $raffleId . '.json', json_encode($raffleData, JSON_PRETTY_PRINT));
+            file_put_contents(DATA_DIR . $raffleId . '.json', json_encode($raffleData, JSON_PRETTY_PRINT));
             
             // Redirect to signup page
-            header('Location: /raffle/' . $raffleId);
+            header('Location: /admin/raffle/' . $raffleId);
             exit;
         }
     }
     
     // Render homepage template
-    include dirname(__DIR__) . '/templates/homepage.tpl.php';
+    include TPL_DIR . 'homepage.tpl.php';
 }

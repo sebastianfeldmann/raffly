@@ -36,7 +36,7 @@
                         <?php foreach ($raffles as $raffle): ?>
                             <tr>
                                 <td class="raffle-title">
-                                    <a href="/raffle/<?= $raffle['id'] ?>" class="raffle-title-link">
+                                    <a href="/admin/raffle/<?= $raffle['id'] ?>" class="raffle-title-link">
                                         <?= htmlspecialchars($raffle['title']) ?>
                                     </a>
                                 </td>

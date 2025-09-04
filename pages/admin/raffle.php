@@ -11,7 +11,7 @@ function raffle($path) {
         exit('Raffle not found.');
     }
 
-    $filePath = DATA_DIR . $raffleId . '.json';
+    $filePath = DATA_DIR . '/' . $raffleId . '.json';
 
     if (!file_exists($filePath)) {
         header('HTTP/1.0 404 Not Found');
@@ -21,5 +21,5 @@ function raffle($path) {
     $raffleData = json_decode(file_get_contents($filePath), true);
     
     // Render raffle template
-    include TPL_DIR . 'raffle.tpl.php';
+    include TPL_DIR . 'admin/raffle.tpl.php';
 }
