@@ -11,11 +11,11 @@
         <div class="breadcrumb">
             <a href="/admin/raffles" class="breadcrumb-link">← All Raffles</a>
         </div>
-        
+
         <div class="admin-header">
             <h1><?= htmlspecialchars($raffleData['title']) ?></h1>
         </div>
-        
+
         <div class="admin-toolbar">
             <a href="/raffle/<?= $raffleId ?>" class="toolbar-action">
                 <div class="toolbar-icon">🎡</div>
@@ -34,7 +34,7 @@
                 <div class="toolbar-label">Show QR Code</div>
             </button>
         </div>
-        
+
         <!-- QR Code Modal -->
         <div id="qrModal" class="qr-modal" onclick="closeQrModal()">
             <div class="qr-modal-content" onclick="event.stopPropagation()">
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Manual Copy Modal -->
         <div id="copyModal" class="qr-modal" onclick="closeCopyModal()">
             <div class="qr-modal-content" onclick="event.stopPropagation()">
@@ -66,12 +66,12 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="info-grid">
             <div class="info-card">
                 <h3>Participants (<?= count($raffleData['participants']) ?>)</h3>
                 <ul id="participant-list">
-                    <?php 
+                    <?php
                     $sortedParticipants = $raffleData['participants'];
                     sort($sortedParticipants);
                     foreach ($sortedParticipants as $participant): ?>
@@ -84,7 +84,7 @@
                     <?php endforeach; ?>
                 </ul>
             </div>
-            
+
             <div class="info-card">
                 <h3>Winners (<?= count($raffleData['winners']?? []) ?>)</h3>
                 <?php if (!empty($raffleData['winners'])): ?>
@@ -106,22 +106,7 @@
                 <?php endif; ?>
             </div>
         </div>
-        
-        <div class="qr-section">
-            <h3>Share this Raffle</h3>
-            <div class="qr-content">
-                <div class="qr-code">
-                    <img src="/qrcode/<?= $raffleId ?>" alt="QR Code for Raffle Signup" class="qr-image">
-                </div>
-                <div class="qr-info">
-                    <p>Scan to join this raffle</p>
-                    <a href="/signup/<?= $raffleId ?>" class="btn btn-secondary">
-                        📝 Join Raffle
-                    </a>
-                </div>
-            </div>
-        </div>
-        
+
     </div>
 
     <footer class="powered-by">
@@ -133,13 +118,13 @@
 
     <script>
         const raffleId = '<?= $raffleId ?>';
-        
+
         // Delete participant function
         async function deleteParticipant(participantName) {
             if (!confirm('Are you sure you want to delete ' + participantName + '?')) {
                 return;
             }
-            
+
             try {
                 const response = await fetch('/admin/participant/delete', {
                     method: 'POST',
@@ -148,16 +133,16 @@
                     },
                     body: 'raffleID=' + encodeURIComponent(raffleId) + '&participant=' + encodeURIComponent(participantName)
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
                     // Remove the participant item from DOM
                     const participantItem = document.querySelector(`[data-participant="${participantName}"]`);
                     if (participantItem) {
                         participantItem.remove();
                     }
-                    
+
                     // Update participant count in header
                     const participantHeader = document.querySelector('.info-card h3');
                     if (participantHeader) {
@@ -171,14 +156,14 @@
                 alert('Error occurred while deleting participant.');
             }
         }
-        
+
         // Delete winner function (restore to participants or delete permanently)
         async function deleteWinner(winnerName, backToParticipants) {
             const action = backToParticipants ? 'restore to participants' : 'delete permanently';
             if (!confirm('Are you sure you want to ' + action + ' ' + winnerName + '?')) {
                 return;
             }
-            
+
             try {
                 const response = await fetch('/admin/winner/delete', {
                     method: 'POST',
@@ -187,29 +172,29 @@
                     },
                     body: 'raffleID=' + encodeURIComponent(raffleId) + '&winner=' + encodeURIComponent(winnerName) + '&backToParticipants=' + backToParticipants
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
                     // Remove the winner item from DOM
                     const winnerItem = document.querySelector(`[data-winner="${winnerName}"]`);
                     if (winnerItem) {
                         winnerItem.remove();
                     }
-                    
+
                     // Update winner count in header
                     const winnerHeader = document.querySelector('.info-card h3');
                     if (winnerHeader && winnerHeader.textContent.includes('Winners')) {
                         winnerHeader.textContent = `Winners (${result.remainingWinners})`;
                     }
-                    
+
                     // Update participant count and add to list (only if restored to participants)
                     if (backToParticipants) {
                         const participantHeader = document.querySelector('.info-card h3');
                         if (participantHeader && participantHeader.textContent.includes('Participants')) {
                             participantHeader.textContent = `Participants (${result.totalParticipants})`;
                         }
-                        
+
                         // Add restored winner to participant list in alphabetical order
                         const participantList = document.getElementById('participant-list');
                         if (participantList) {
@@ -223,11 +208,11 @@
                                     🗑️
                                 </button>
                             `;
-                            
+
                             // Find correct alphabetical position
                             const existingItems = participantList.querySelectorAll('.participant-item');
                             let insertPosition = null;
-                            
+
                             for (const item of existingItems) {
                                 const existingName = item.querySelector('.participant-name').textContent;
                                 if (winnerName.localeCompare(existingName) < 0) {
@@ -235,7 +220,7 @@
                                     break;
                                 }
                             }
-                            
+
                             // Insert at correct position
                             if (insertPosition) {
                                 participantList.insertBefore(newParticipantItem, insertPosition);
@@ -254,7 +239,7 @@
                 alert('Error occurred while ' + errorAction + ' winner.');
             }
         }
-        
+
         // Copy signup URL to clipboard with triple fallback
         async function copySignupUrl() {
             const button = event.currentTarget;
@@ -278,7 +263,7 @@
             // Method 3: Show manual copy modal as last resort
             showManualCopyModal(signupUrl);
         }
-        
+
         // Legacy copy method using execCommand
         function tryLegacyCopy(text) {
             try {
@@ -289,39 +274,39 @@
                 tempInput.style.left = '-9999px';
                 tempInput.style.opacity = '0';
                 document.body.appendChild(tempInput);
-                
+
                 // Select and copy
                 tempInput.select();
                 tempInput.setSelectionRange(0, 99999);
                 const success = document.execCommand('copy');
-                
+
                 // Clean up
                 document.body.removeChild(tempInput);
-                
+
                 return success;
             } catch (error) {
                 console.log('Legacy copy failed:', error);
                 return false;
             }
         }
-        
+
         // Show success feedback with icon morphing
         function showCopySuccess(button) {
             const originalIcon = button.querySelector('.toolbar-icon').textContent;
             const originalLabel = button.querySelector('.toolbar-label').textContent;
-            
+
             // Morph icon and change text
             button.querySelector('.toolbar-icon').textContent = '✅';
             button.querySelector('.toolbar-label').textContent = 'Copied!';
             button.classList.add('toolbar-success');
-            
+
             setTimeout(() => {
                 button.querySelector('.toolbar-icon').textContent = originalIcon;
                 button.querySelector('.toolbar-label').textContent = originalLabel;
                 button.classList.remove('toolbar-success');
             }, 2000);
         }
-        
+
         // Show manual copy modal
         function showManualCopyModal(url) {
             document.getElementById('copyUrlInput').value = url;
@@ -331,29 +316,29 @@
                 document.getElementById('copyUrlInput').select();
             }, 100);
         }
-        
+
         // Close manual copy modal
         function closeCopyModal() {
             document.getElementById('copyModal').classList.remove('qr-modal-show');
         }
-        
+
         // Select URL in input field
         function selectUrl() {
             const input = document.getElementById('copyUrlInput');
             input.select();
             input.setSelectionRange(0, 99999); // For mobile devices
         }
-        
+
         // Show QR code modal
         function showQrCode() {
             document.getElementById('qrModal').classList.add('qr-modal-show');
         }
-        
+
         // Close QR code modal
         function closeQrModal() {
             document.getElementById('qrModal').classList.remove('qr-modal-show');
         }
-        
+
         // Close modals on Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
