@@ -36,14 +36,14 @@
                         <?php foreach ($raffles as $raffle): ?>
                             <tr>
                                 <td class="raffle-title">
-                                    <a href="/raffle/<?= $raffle['id'] ?>" class="raffle-title-link">
+                                    <a href="/admin/raffle/<?= $raffle['id'] ?>" class="raffle-title-link">
                                         <?= htmlspecialchars($raffle['title']) ?>
                                     </a>
                                 </td>
                                 <td class="raffle-id"><?= htmlspecialchars($raffle['id']) ?></td>
                                 <td class="participant-count"><?= $raffle['participants'] ?></td>
                                 <td class="winner-count"><?= $raffle['winners'] ?></td>
-                                <td class="updated-date"><?= date('M j, Y h:i', $raffle['lastUpdated']) ?></td>
+                                <td class="updated-date"><?= date('M j, Y H:i', $raffle['lastUpdated']) ?></td>
                                 <td class="actions">
                                     <div class="dropdown">
                                         <button type="button" class="dropdown-toggle" onclick="toggleDropdown(event, '<?= $raffle['id'] ?>')">

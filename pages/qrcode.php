@@ -12,9 +12,7 @@ function qrcode($path) {
         exit('Raffle not found.');
     }
 
-
-    $dataDir = dirname(__DIR__) . '/data';
-    $filePath = $dataDir . '/' . $raffleId . '.json';
+    $filePath = DATA_DIR . $raffleId . '.json';
 
     if (!file_exists($filePath)) {
         header('HTTP/1.0 404 Not Found');

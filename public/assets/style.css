@@ -313,14 +313,6 @@ input[type="text"]:focus {
     border-top: 20px solid #000000;
 }
 
-#canvas {
-    border: 2px solid #34495e;
-    border-radius: 50%;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    height: auto;
-}
-
 .no-participants {
     text-align: center;
     padding: 3rem;
@@ -431,6 +423,427 @@ input[type="text"]:focus {
     border-bottom: none;
 }
 
+/* Winners Showcase */
+.winners-showcase {
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.winners-showcase h2 {
+    color: #495057;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.winners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.winner-card {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.winner-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+}
+
+.winner-position {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.winner-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.winner-trophy {
+    font-size: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive Design for Winners */
+@media (max-width: 768px) {
+    .winners-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .winner-card {
+        padding: 1.2rem;
+    }
+    
+    .winners-showcase h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Participant Items with Delete Buttons */
+.participant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.participant-item:last-child {
+    border-bottom: none;
+}
+
+.participant-name {
+    flex-grow: 1;
+}
+
+.btn-delete-participant {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+}
+
+.btn-delete-participant:hover {
+    opacity: 1;
+    background-color: #f8d7da;
+    transform: scale(1.1);
+}
+
+.btn-delete-participant:active {
+    transform: scale(0.95);
+}
+
+/* Winner Actions */
+.winner-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-delete-winner {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+}
+
+.btn-delete-winner:hover {
+    opacity: 1;
+    background-color: #d1ecf1;
+    transform: scale(1.1);
+}
+
+.btn-delete-winner.btn-delete-permanent:hover {
+    background-color: #f8d7da;
+}
+
+.btn-delete-winner:active {
+    transform: scale(0.95);
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+    margin-bottom: 1rem;
+}
+
+.breadcrumb-link {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+    color: #495057;
+    text-decoration: underline;
+}
+
+/* Admin Header */
+.admin-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.admin-header h1 {
+    margin: 0;
+    color: #495057;
+    font-size: 2rem;
+}
+
+/* Modern App Toolbar */
+.admin-toolbar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.toolbar-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem 1rem;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.toolbar-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #007bff;
+}
+
+.toolbar-action:active {
+    transform: translateY(0);
+}
+
+.toolbar-action.toolbar-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+}
+
+.toolbar-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.toolbar-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* QR Code Modal */
+.qr-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-modal.qr-modal-show {
+    display: flex;
+}
+
+.qr-modal-content {
+    background: white;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.qr-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    background: #f8f9fa;
+}
+
+.qr-modal-header h3 {
+    margin: 0;
+    color: #495057;
+    font-size: 1.2rem;
+}
+
+.qr-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.qr-modal-close:hover {
+    background-color: #e9ecef;
+}
+
+.qr-modal-body {
+    padding: 2rem;
+    text-align: center;
+}
+
+.qr-modal-image {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.qr-modal-text {
+    color: #6c757d;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Manual Copy Modal Styles */
+.copy-instructions {
+    color: #495057;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.copy-url-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.copy-url-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.copy-url-input:focus {
+    outline: none;
+    border-color: #007bff;
+    background-color: white;
+}
+
+.copy-select-btn {
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
+    font-size: 0.85rem;
+}
+
+.copy-help {
+    color: #6c757d;
+    font-size: 0.85rem;
+    text-align: center;
+    margin: 0;
+}
+
+.copy-help kbd {
+    background-color: #e9ecef;
+    border: 1px solid #adb5bd;
+    border-radius: 3px;
+    color: #495057;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    font-family: monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-toolbar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+    
+    .toolbar-action {
+        padding: 1rem 0.8rem;
+    }
+    
+    .toolbar-icon {
+        font-size: 1.8rem;
+    }
+    
+    .toolbar-label {
+        font-size: 0.8rem;
+    }
+    
+    .qr-modal-image {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .admin-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .copy-url-container {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+    
+    .copy-select-btn {
+        padding: 0.6rem 1rem;
+    }
+}
+
 /* QR Code Section */
 .qr-section {
     margin: 3rem 0 2rem 0;
@@ -501,6 +914,20 @@ input[type="text"]:focus {
         top: 15px;
         right: 15px;
     }
+    
+    .btn-delete-participant {
+        padding: 4px 8px;
+        font-size: 1rem;
+    }
+    
+    .btn-delete-winner {
+        padding: 4px 8px;
+        font-size: 1rem;
+    }
+    
+    .winner-actions {
+        gap: 6px;
+    }
 }
 
 /* Participants */
@@ -531,20 +958,6 @@ input[type="text"]:focus {
 
 .navigation .btn {
     margin: 0 10px;
-}
-
-.admin-link {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.admin-link a {
-    color: #6c757d;
-    text-decoration: none;
-}
-
-.admin-link a:hover {
-    text-decoration: underline;
 }
 
 /* Admin Table */
@@ -638,12 +1051,6 @@ th {
     color: #6c757d;
 }
 
-.no-participants-message {
-    text-align: center;
-    color: #6c757d;
-    font-style: italic;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
     body {
@@ -716,11 +1123,6 @@ th {
         display: block;
         margin: 10px auto;
         max-width: 200px;
-    }
-    
-    .container.admin-container {
-        max-width: 100%;
-        padding: 20px;
     }
     
     .raffles-table {

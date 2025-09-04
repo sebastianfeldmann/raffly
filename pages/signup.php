@@ -29,8 +29,7 @@ function signup($path) {
         exit('Raffle not found.');
     }
 
-    $dataDir = dirname(__DIR__) . '/data';
-    $filePath = $dataDir . '/' . $raffleId . '.json';
+    $filePath = DATA_DIR . $raffleId . '.json';
 
     if (!file_exists($filePath)) {
         header('HTTP/1.0 404 Not Found');
@@ -68,5 +67,5 @@ function signup($path) {
     }
     
     // Render signup template
-    include dirname(__DIR__) . '/templates/signup.tpl.php';
+    include TPL_DIR . 'signup.tpl.php';
 }
