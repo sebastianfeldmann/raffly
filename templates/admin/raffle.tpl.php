@@ -163,9 +163,6 @@
                     if (participantHeader) {
                         participantHeader.textContent = `Participants (${result.remainingParticipants})`;
                     }
-                    
-                    // Show success message
-                    alert('Participant deleted successfully!');
                 } else {
                     alert('Error: ' + (result.error || 'Failed to delete participant'));
                 }
@@ -247,12 +244,6 @@
                             }
                         }
                     }
-                    
-                    // Show success message
-                    const successMessage = backToParticipants ? 
-                        'Winner restored to participants successfully!' : 
-                        'Winner deleted permanently!';
-                    alert(successMessage);
                 } else {
                     const errorAction = backToParticipants ? 'restore winner' : 'delete winner';
                     alert('Error: ' + (result.error || 'Failed to ' + errorAction));
